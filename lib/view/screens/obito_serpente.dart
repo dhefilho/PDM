@@ -47,7 +47,6 @@ class _ObitoSerpente extends State<ObitoSerpente> {
                 eSenha: true,
                 icon: IconButton(
                   onPressed: () {
-                    //_scanQR();
                     scanBarcodeNormal();
                   },
                   color: Colors.blue[100],
