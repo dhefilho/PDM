@@ -35,8 +35,7 @@ class _MenuPageState extends State<MenuPage> {
           padding: EdgeInsets.all(40),
           child: Column(children: [
             SvgPicture.asset('imagens/scared.svg', semanticsLabel: 'scared'),
-            //WBotao(rotulo: 'Menu'),
-            WBotao(rotulo: 'Sobre'),
+            
              GestureDetector(
                 onTap: (){
                   Navigator.push(
