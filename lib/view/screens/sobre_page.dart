@@ -1,4 +1,6 @@
 
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,13 +25,17 @@ class _SobrePage extends State<SobrePage> {
           centerTitle: true,
         ),
           backgroundColor: Theme.of(context).backgroundColor,
-          body: SingleChildScrollView(
-            child: Container(
-            padding: EdgeInsets.all(40),
-            child: Column(children: [
-              Text("Registro e Controle de Serpentes \n\n Esse é um aplicativo para registro geral de controle de serpentes               feita para ofidários. O aplicativo é capaz de registrar serpentes,               cadastrar usuários, registrar alimentações e vermifugações e registrar óbitos."),
-              Image.asset('imagens/daoud.jpg'),
-              Text("Daoud Elias", 
+            body: SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                
+               
+                padding: EdgeInsets.all(40),
+                child: Column(children: [
+              
+                Text("Registro e Controle de Serpentes \n\n Esse é um aplicativo para registro geral de controle de serpentes               feita para ofidários. O aplicativo é capaz de registrar serpentes,               cadastrar usuários, registrar alimentações e vermifugações e registrar óbitos.\n\n\n"),
+                Image.asset('imagens/daoud.jpg'),
+                Text("Daoud Elias", 
                 style: TextStyle(color:Colors.blue, fontWeight: FontWeight.bold
                 )
               ),
