@@ -30,8 +30,7 @@ class WCampoBCode extends StatelessWidget {
 
         //validar a entrada de dados
         validator: (value) {
-          value = value.replaceFirst(',', '.');
-          if (double.tryParse(value) == null) {
+          if (value.length == 0) {
             return 'Insira uma informação';
           } else {
             return null;

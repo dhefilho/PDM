@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "305977725931",
+    "firebase_url": "https://app-regsnake-default-rtdb.firebaseio.com",
+    "project_id": "app-regsnake",
+    "storage_bucket": "app-regsnake.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305977725931:android:310dc2b592460531d03fae",
+        "android_client_info": {
+          "package_name": "com.example.projeto_reg_snake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305977725931-i2dh4eah5tst28ikagk82gj2dv0i2f67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUTNM8fbMHua9GOXX9q0ZbBtagUX_Xo5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305977725931-i2dh4eah5tst28ikagk82gj2dv0i2f67.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "305977725931-jg7sbvk17r802hnke3m6d5qd3tkn74om.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.projetoRegSnake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

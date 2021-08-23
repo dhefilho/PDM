@@ -1,14 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:projeto_reg_snake/view/screens/cadastro_serpente.dart';
-import 'package:projeto_reg_snake/view/screens/cadastro_usuario.dart';
-import 'package:projeto_reg_snake/view/screens/consulta_serpente.dart';
-import 'package:projeto_reg_snake/view/screens/obito_serpente.dart';
-import 'package:projeto_reg_snake/view/screens/sobre_page.dart';
-import 'package:projeto_reg_snake/view/screens/vermifugacao_serpente.dart';
-import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
+import 'package:projeto_reg_snake/data/models/m_menu.dart';
+import 'package:projeto_reg_snake/view/screens/widgets/w_menu_list.dart';
 
-import 'alimenta_serpente.dart';
 
 class MenuPage extends StatefulWidget {
   MenuPage({Key key, this.title}) : super(key: key);
@@ -21,6 +15,32 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  List<Menu> listMenu = [];
+  Stream<QuerySnapshot> usersStream;
+
+  @override
+  void initState() {
+    super.initState();
+
+
+    Menu menu1 = new Menu(name:'Sobre',icon:'imagens/information.svg');
+    listMenu.add(menu1);
+    /*Menu menu2 = new Menu(name:'Cadastro de usuário',icon:'imagens/scared.svg');
+    listMenu.add(menu2);*/
+    Menu menu3 = new Menu(name:'Registro de serpente',icon:'imagens/registration.svg');
+    listMenu.add(menu3);
+    Menu menu4 = new Menu(name:'Consulta',icon:'imagens/find.svg');
+    listMenu.add(menu4);
+    Menu menu5 = new Menu(name:'Alimentação',icon:'imagens/rat.svg');
+    listMenu.add(menu5);
+    Menu menu6 = new Menu(name:'Vermifugação',icon:'imagens/medication.svg');
+    listMenu.add(menu6);
+    Menu menu7 = new Menu(name:'Óbito',icon:'imagens/death.svg');
+    listMenu.add(menu7);
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,85 +50,16 @@ class _MenuPageState extends State<MenuPage> {
           centerTitle: true,
         ),
         backgroundColor: Theme.of(context).backgroundColor,
-        body: SingleChildScrollView(
-          child: Container(
-          padding: EdgeInsets.all(40),
-          child: Column(children: [
-            SvgPicture.asset('imagens/scared.svg', semanticsLabel: 'scared'),
-            
-             GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => SobrePage()),
-                  );
-                },
-                child:WBotao(rotulo:'Sobre'  )
-              ),
+        body:  Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            children: <Widget>[
+              WMenuList(menuList: listMenu,)
+            ]),
 
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => CadastroUsuario()),
-                  );
-                },
-                child:WBotao(rotulo:'Cadastro de usuário'  )
-              ),
 
-            GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => CadastroSerpente()),
-                  );
-                },
-                child:WBotao(rotulo:'Registro de serpente'  )
-              ),
-            //WBotao(rotulo: 'Consulta'),
-            GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => ConsultaSerpente()),
-                  );},
-                  child:WBotao(rotulo:'Consulta')),
-            //WBotao(rotulo: 'Alimentação'),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => AlimentaSerpente()),
-                  );
-                },
-                child:WBotao(rotulo:'Alimentação'  )
-              ),
-            //WBotao(rotulo: 'Vermifugação'),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => VermifugacaoSerpente()),
-                  );
-                },
-                child:WBotao(rotulo:'Vermifugação'  )
-              ),
-            //WBotao(rotulo: 'Óbitos'),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 100),
-                      pageBuilder: (_, __, ___) => ObitoSerpente()),
-                  );},
-                  child:WBotao(rotulo:'Óbito'  )
-          )]),
-        )));
+        ),
+
+    );
   }
 }

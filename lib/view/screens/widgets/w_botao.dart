@@ -9,14 +9,27 @@ class WBotao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.symmetric(vertical: 10),
-      width: double.infinity,
-      height: MediaQuery //para ajustar ao tamanho da tela
-        .of(context)
-        .size
-        .height / 15,
-      color: Colors.blue,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height/12,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      decoration: BoxDecoration(
+        color:Colors.blue,
+        borderRadius: BorderRadius.all(
+            Radius.circular(8)
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue[200],
+            blurRadius: 4,
+            offset: Offset(2, 6), // Shadow position
+          ),
+        ],
+      ),
       child: Center(
         child: Text(rotulo, style: TextStyle(
           fontSize: 18,

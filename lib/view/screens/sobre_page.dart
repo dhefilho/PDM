@@ -28,20 +28,24 @@ class _SobrePage extends State<SobrePage> {
             body: SingleChildScrollView(
               child: Container(
                 width: double.infinity,
-                
-               
+
+
                 padding: EdgeInsets.all(40),
                 child: Column(children: [
-              
+
                 Text("Registro e Controle de Serpentes \n\n Esse é um aplicativo para registro geral de controle de serpentes               feita para ofidários. O aplicativo é capaz de registrar serpentes,               cadastrar usuários, registrar alimentações e vermifugações e registrar óbitos.\n\n\n"),
-                Image.asset('imagens/daoud.jpg'),
-                Text("Daoud Elias", 
+               Hero(
+                 tag:widget.title,
+                 child:Image.asset('imagens/daoud.jpg'),
+               ),
+
+                Text("Daoud Elias",
                 style: TextStyle(color:Colors.blue, fontWeight: FontWeight.bold
                 )
               ),
               Container(height: 10,),
               Image.asset('imagens/washington.png'),
-              Text("Washington Miranda", 
+              Text("Washington Miranda",
                 style: TextStyle(color:Colors.blue, fontWeight: FontWeight.bold
                 )
               ),

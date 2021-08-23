@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class WCampoTexto extends StatelessWidget {
-  final TextEditingController variavel;
+  final variavel;
   final String rotulo;
   final bool eSenha;
   final IconButton icon;
+  final FormFieldValidator<String> validator;
 
-
-  WCampoTexto({this.variavel, this.rotulo, this.eSenha, this.icon});
+  WCampoTexto({this.variavel, this.rotulo, this.eSenha, this.icon, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +30,7 @@ class WCampoTexto extends StatelessWidget {
         ),
 
         //validar a entrada de dados
-        validator: (value) {
-          value = value.replaceFirst(',', '.');
-          if (double.tryParse(value) == null) {
-          return 'Entre com uma informação';
-          } else {
-            return null;
-          }
-        },
+        validator: validator
       ),
     );
   }

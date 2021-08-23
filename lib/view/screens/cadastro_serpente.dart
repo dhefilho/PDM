@@ -2,15 +2,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:projeto_reg_snake/control/serpente_controller.dart';
+import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_bcode.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_texto.dart';
-import 'package:qr_utils/qr_utils.dart';
 
 class CadastroSerpente extends StatefulWidget {
   CadastroSerpente({Key key, this.title}) : super(key: key);
@@ -21,25 +19,25 @@ class CadastroSerpente extends StatefulWidget {
 }
 
 class _CadastroSerpente extends State<CadastroSerpente> {
-  SerpenteController serpenteController = SerpenteController();
-
-  File _image = null;
+  SerpenteController serpenteController =
+  SerpenteController(snakeServiceApiPost: new SnakeServiceApiPost());
   final picker = ImagePicker();
   Image image = null;
   String scanBarcode = "";
   String content = "";
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    serpenteController.pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
-      if (pickedFile != null) {
+      if (serpenteController.pickedFile != null) {
+        
         if (kIsWeb) {
-          image = Image.network(pickedFile.path);
+        image = Image.network(serpenteController.pickedFile.path);
         } else {
-          image = Image.file(File(pickedFile.path));
+          image = Image.file(File(serpenteController.pickedFile.path));
         }
-      } else {
+        } else {
         print('Nenhuma imagem selecionada');
       }
     });
@@ -49,7 +47,8 @@ class _CadastroSerpente extends State<CadastroSerpente> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Registro de novas serpentes', style: Theme.of(context).textTheme.headline1),
+          title: Text('Registro de novas serpentes',
+              style: Theme.of(context).textTheme.headline1),
           backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
         ),
@@ -80,14 +79,35 @@ class _CadastroSerpente extends State<CadastroSerpente> {
                               image: image.image,
                             ),
                       WCampoTexto(
+                        validator: (value) {
+                          if (value.length == 0) {
+                          return 'Informe uma espécie';
+                          } else {
+                            return null;
+                          }
+                          },
                           rotulo: 'Espécie',
                           variavel: serpenteController.txtEspecie,
                           eSenha: false),
                       WCampoTexto(
+                        validator: (value) {
+                          if (value.length == 0) {
+                          return 'Informe o sexo';
+                          } else {
+                            return null;
+                          }
+                          },
                           rotulo: 'Sexo',
                           variavel: serpenteController.txtSexo,
                           eSenha: false),
                       WCampoTexto(
+                        validator: (value) {
+                          if (value.length < 2) {
+                          return 'Insira um peso válido';
+                          } else {
+                            return null;
+                          }
+                        },
                         rotulo: 'Peso',
                         variavel: serpenteController.txtPeso,
                         eSenha: false,
@@ -95,11 +115,11 @@ class _CadastroSerpente extends State<CadastroSerpente> {
                       WCampoBCode(
                         rotulo: 'Número do Chip',
                         variavel: serpenteController.txtNChip,
-                        eSenha: true,
+                        eSenha: false,
                         icon: IconButton(
                           onPressed: () {
                             //_scanQR();
-                            scanBarcodeNormal();
+                            // scanBarcodeNormal();
                           },
                           color: Colors.blue[100],
                           icon: Icon(Icons.camera_alt),
@@ -107,60 +127,100 @@ class _CadastroSerpente extends State<CadastroSerpente> {
                       ),
                       Text(content),
                       WCampoTexto(
+                          validator: (value) {
+                          if (value.length == 0) {
+                            return 'Informe a procedência do animal';
+                            } else {
+                            return null;
+                            }
+                          },
                           rotulo: 'Procedência',
                           variavel: serpenteController.txtProcedencia,
                           eSenha: false),
                       WCampoTexto(
+                        validator: (value) {
+                          if (value.length == 0) {
+                            return 'Informe o nome da cidade';
+                            } else {
+                            return null;
+                            }
+                          },
                           rotulo: 'Cidade',
                           variavel: serpenteController.txtCidade,
                           eSenha: false),
                       WCampoTexto(
+                          validator: (value) {
+                          if (value.length == 0) {
+                            return 'Informe o estado';
+                            } else {
+                            return null;
+                            }
+                          },
                           rotulo: 'Estado',
                           variavel: serpenteController.txtEstado,
                           eSenha: false),
                       WCampoTexto(
+                          validator: (value) {
+                          if (value.length == 0) {
+                            return 'Informe o nome do doador';
+                            } else {
+                            return null;
+                            }
+                          },
                           rotulo: 'Nome do doador',
                           variavel: serpenteController.txtDoadorNome,
                           eSenha: false),
                       WCampoTexto(
+                          validator: (value) {
+                          if (value.length < 12) {
+                            return 'Informe o CPF do doador';
+                            } else {
+                            return null;
+                            }
+                          },
                           rotulo: 'CPF do doador',
                           variavel: serpenteController.txtDoadorCPF,
                           eSenha: false),
-                      WBotao(rotulo: 'Registrar'),
+                      GestureDetector(
+                        onTap: () {
+                          serpenteController.saveSnake(context);
+                        },
+                        child: WBotao(rotulo: 'Registrar'),
+                      )
                     ])))));
   }
 
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      scanBarcode = barcodeScanRes;
-    });
-  }
-
-  void _scanQR() async {
-    String result;
-    try {
-      result = await QrUtils.scanQR;
-    } on PlatformException {
-      result = 'Process Failed!';
-    }
-
-    setState(() {
-      content = result;
-    });
-  }
+//  Future<void> scanBarcodeNormal() async {
+//    String barcodeScanRes;
+//    // Platform messages may fail, so we use a try/catch PlatformException.
+//    try {
+//      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+//          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+//      print(barcodeScanRes);
+//    } on PlatformException {
+//      barcodeScanRes = 'Failed to get platform version.';
+//    }
+//
+//    // If the widget was removed from the tree while the asynchronous platform
+//    // message was in flight, we want to discard the reply rather than calling
+//    // setState to update our non-existent appearance.
+//    if (!mounted) return;
+//
+//    setState(() {
+//      scanBarcode = barcodeScanRes;
+//    });
+//  }
+//
+//  void _scanQR() async {
+//    String result;
+//    try {
+//      result = await QrUtils.scanQR;
+//    } on PlatformException {
+//      result = 'Process Failed!';
+//    }
+//
+//    setState(() {
+//      content = result;
+//    });
+//  }
 }

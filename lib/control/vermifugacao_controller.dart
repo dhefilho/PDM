@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
 
 ////////////////////////////////////////////////////////////
 //Código do chip; data da vermifugação e medicamento usado//
@@ -6,10 +6,15 @@ import 'package:flutter/cupertino.dart';
 
 class VermifugacaoController {
   //Atributos para armazenar os valores digitados pelo usuário
-  var txtMicrochip = TextEditingController();
-  var txtData = TextEditingController();
-  var txtMedicaVerm = TextEditingController();
-
+  var txtMicrochip;
+  var txtData;
+  var txtMedicaVerm;
   //Chave que identifica unicamente o formulário
-  var formKey = GlobalKey<FormState>();
+  var formKey;
+
+  SnakeServiceApiPost snakeServiceApiPost;
+
+  VermifugacaoController({this.snakeServiceApiPost,this.txtData,
+  this.txtMicrochip,this.txtMedicaVerm,this.formKey});
+
 }

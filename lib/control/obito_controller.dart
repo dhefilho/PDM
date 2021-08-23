@@ -1,12 +1,20 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
 
 class ObitoController{
    //Atributos para armazenar os valores digitados pelo usuário
-  var txtData = TextEditingController();
-  var txtMicrochip = TextEditingController();
-  var txtCausa = TextEditingController();
+  var txtData;
+  var txtMicrochip;
+  var txtCausa;
   //Chave que identifica unicamente o formulário
-  var formKey = GlobalKey<FormState>();
+  var formKey;
+
+
+
+  SnakeServiceApiPost snakeServiceApiPost;
+
+  ObitoController({this.snakeServiceApiPost,this.txtData,
+  this.txtMicrochip,this.txtCausa,this.formKey});
 
 
 }

@@ -1,14 +1,15 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projeto_reg_snake/control/alimenta_controller.dart';
+import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
+import 'package:projeto_reg_snake/view/screens/menu_page.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_bcode.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_data.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_texto.dart';
+
 
 class AlimentaSerpente extends StatefulWidget {
   AlimentaSerpente({Key key, this.title}) : super(key: key);
@@ -19,18 +20,23 @@ class AlimentaSerpente extends StatefulWidget {
 }
 
 class _AlimentaSerpente extends State<AlimentaSerpente> {
-  AlimentaController alimentaSerpente = AlimentaController();
+  AlimentaController alimentaSerpente = AlimentaController(
+    txtData: TextEditingController(),
+    txtEspecie: TextEditingController(),
+    txtMicrochip: TextEditingController(),
+    txtQuantidade: TextEditingController(),
+    formKey: GlobalKey<FormState>(),
+    snakeServiceApiPost: new SnakeServiceApiPost());
   DateTime data;
 
   @override
   Widget build(BuildContext context) {
-    var alimentaController;
     return Scaffold(
         appBar: AppBar(
           title: Text('Registro de alimentação',
-              style: Theme.of(context).textTheme.headline1),
-          backgroundColor: Theme.of(context).primaryColor,
-          centerTitle: true,
+            style: Theme.of(context).textTheme.headline1),
+            backgroundColor: Theme.of(context).primaryColor,
+            centerTitle: true,
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
@@ -43,10 +49,10 @@ class _AlimentaSerpente extends State<AlimentaSerpente> {
               WCampoBCode(
                 rotulo: 'Número do Chip',
                 variavel: alimentaSerpente.txtMicrochip,
-                eSenha: true,
+                eSenha: false,
                 icon: IconButton(
                   onPressed: () {
-                    scanBarcodeNormal();
+                   // scanBarcodeNormal();
                   },
                   color: Colors.blue[100],
                   icon: Icon(Icons.camera_alt),
@@ -69,34 +75,82 @@ class _AlimentaSerpente extends State<AlimentaSerpente> {
                         return Theme(data: ThemeData.dark(), child: child);
                       },
                     );
-                    alimentaController.txtData.text = datain.format(data);
+                    alimentaSerpente.txtData.text = datain.format(data);
                   },
                 ),
               ),
               WCampoTexto(
                   rotulo: 'Quantidade',
                   variavel: alimentaSerpente.txtQuantidade,
-                  eSenha: false),
+                  eSenha: false,
+                  validator: (value) {
+                  if (value.length < 1) {
+                    return 'Insira uma quantidade';
+                  } else 
+                  if (int.parse(value) > 9){
+                    return 'A quantidade não pode ser maior que 9';
+                  }
+                  else{
+                    return null;
+                  }
+                }
+              ),
               WCampoTexto(
+                validator: (value) {
+                  if (value.length == 0) {
+                    return 'Insira uma espécie';
+                  } else {
+                    return null;
+                  }
+                },
                 rotulo: 'Espécie',
                 variavel: alimentaSerpente.txtEspecie,
                 eSenha: false,
               ),
-              WBotao(rotulo: 'Salvar'),
+              GestureDetector(
+                onTap:(){
+                  salvarAlimentacao(); 
+                },
+                child: WBotao(rotulo: 'Salvar'),
+              )
+              
             ]),
           ),
         )));
   }
+  Future<void> salvarAlimentacao() async {
+    if (alimentaSerpente.formKey.currentState.validate()) {
+      Map<String, dynamic> map = {
+        'Microchip': alimentaSerpente.txtMicrochip.text,
+        'Data': alimentaSerpente.txtData.text,
+        'Quantidade': alimentaSerpente.txtQuantidade.text,
+        'Especie': alimentaSerpente.txtEspecie.text,
 
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      alimentaSerpente.txtMicrochip.text = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
+      };
+      bool result = await alimentaSerpente.snakeServiceApiPost
+            .addDado(colecao: 'alimentacao', map: map);
+
+        if (result == true) {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+                transitionDuration: Duration(milliseconds: 100),
+                pageBuilder: (_, __, ___) => MenuPage()),
+          );
+        }
     }
+    
   }
+
+//  Future<void> scanBarcodeNormal() async {
+//    String barcodeScanRes;
+//    // Platform messages may fail, so we use a try/catch PlatformException.
+//    try {
+//      alimentaSerpente.txtMicrochip.text = await FlutterBarcodeScanner.scanBarcode(
+//          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+//      print(barcodeScanRes);
+//    } on PlatformException {
+//      barcodeScanRes = 'Failed to get platform version.';
+//    }
+//  }
 }
