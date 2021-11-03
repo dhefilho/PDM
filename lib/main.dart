@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_reg_snake/shared/resources/custom_colors.dart';
 import 'view/screens/home_page.dart';
 
 Future<void> main() async {
@@ -12,21 +13,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
-        theme: ThemeData(
-            primaryColor: Colors.blue[900],
-            backgroundColor: Colors.grey[100],
-            fontFamily: 'Open Sans',
-            textTheme: TextTheme(
-                headline1: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic),
-                headline2: TextStyle(fontSize: 18, color: Colors.blue[900]))
-
-    ));
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(
+        primaryColor: CustomColors.greenHeavy,
+        backgroundColor: CustomColors.greyLight,
+        fontFamily: 'Open Sans',
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontSize: 22,
+            color: CustomColors.white,
+            fontStyle: FontStyle.italic,
+          ),
+          headline2: TextStyle(
+            fontSize: 18,
+            color: CustomColors.greenHeavy,
+          ),
+        ),
+      ),
+    );
   }
 }
-

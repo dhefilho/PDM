@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:projeto_reg_snake/data/models/snake.dart';
 import 'package:projeto_reg_snake/data/service/snake_service_api_get.dart';
 import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
+import 'package:projeto_reg_snake/shared/routes.dart';
 import 'package:projeto_reg_snake/view/screens/menu_page.dart';
 
 class SerpenteController {
