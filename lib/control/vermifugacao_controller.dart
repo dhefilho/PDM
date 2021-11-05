@@ -1,4 +1,4 @@
-import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_post.dart';
 
 ////////////////////////////////////////////////////////////
 //Código do chip; data da vermifugação e medicamento usado//
@@ -14,7 +14,11 @@ class VermifugacaoController {
 
   SnakeServiceApiPost snakeServiceApiPost;
 
-  VermifugacaoController({this.snakeServiceApiPost,this.txtData,
-  this.txtMicrochip,this.txtMedicaVerm,this.formKey});
-
+  VermifugacaoController({
+    this.snakeServiceApiPost,
+    this.txtData,
+    this.txtMicrochip,
+    this.txtMedicaVerm,
+    this.formKey,
+  });
 }

@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:projeto_reg_snake/data/models/user.dart' as User;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SnakeServiceApiPost {

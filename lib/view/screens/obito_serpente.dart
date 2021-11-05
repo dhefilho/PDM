@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projeto_reg_snake/control/obito_controller.dart';
-import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_post.dart';
 import 'package:projeto_reg_snake/view/screens/menu_page.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_bcode.dart';

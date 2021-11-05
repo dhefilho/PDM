@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projeto_reg_snake/control/consulta_controller.dart';
-import 'package:projeto_reg_snake/data/service/snake_service_api_get.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_get.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_bcode.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_data.dart';

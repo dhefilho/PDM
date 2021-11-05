@@ -2,10 +2,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:projeto_reg_snake/data/models/snake.dart';
-import 'package:projeto_reg_snake/data/service/snake_service_api_get.dart';
-import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
-import 'package:projeto_reg_snake/shared/routes.dart';
+import 'package:projeto_reg_snake/shared/data/models/snake.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_get.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_post.dart';
 import 'package:projeto_reg_snake/view/screens/menu_page.dart';
 
 class SerpenteController {
@@ -32,7 +31,7 @@ class SerpenteController {
     if (formKey.currentState.validate()) {
       Uint8List img = await pickedFile.readAsBytes();
       bool uploadImg = await snakeServiceApiPost.uploadFile(img, txtNChip.text);
-      SnakeServiceApiGet snakeServiceApiGet=new SnakeServiceApiGet();
+      SnakeServiceApiGet snakeServiceApiGet = new SnakeServiceApiGet();
 
       String urlImg = await snakeServiceApiGet.downloadURL((txtNChip.text));
 
@@ -73,6 +72,5 @@ class SerpenteController {
         );
       }
     }
-    }
   }
-
+}

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_reg_snake/data/models/m_menu.dart';
+import 'package:projeto_reg_snake/shared/data/models/m_menu.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_menu_list.dart';
 
 

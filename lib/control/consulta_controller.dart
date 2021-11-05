@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:projeto_reg_snake/data/models/snake.dart';
-import 'package:projeto_reg_snake/data/service/snake_service_api_get.dart';
+import 'package:projeto_reg_snake/shared/data/models/snake.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_get.dart';
 
 class ConsultaController {
   //Atributos para armazenar os valores digitados pelo usuário

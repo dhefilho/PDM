@@ -1,5 +1,4 @@
-
-import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_post.dart';
 
 class ObitoController{
    //Atributos para armazenar os valores digitados pelo usuário

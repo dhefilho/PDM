@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:projeto_reg_snake/data/service/snake_auth_service.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_auth_service.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_texto.dart';
 import 'package:toast/toast.dart';
 import 'cadastro_usuario.dart';
 import 'menu_page.dart';
-
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);

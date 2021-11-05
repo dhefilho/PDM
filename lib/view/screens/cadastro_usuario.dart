@@ -2,13 +2,13 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projeto_reg_snake/control/cadastro_controller.dart';
-import 'package:projeto_reg_snake/data/service/snake_auth_service.dart';
-import 'package:projeto_reg_snake/data/service/snake_service_api_post.dart';
+import 'package:projeto_reg_snake/shared/data/models/user.dart' as User;
+import 'package:projeto_reg_snake/shared/data/service/snake_auth_service.dart';
+import 'package:projeto_reg_snake/shared/data/service/snake_service_api_post.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_botao.dart';
 import 'package:projeto_reg_snake/view/screens/widgets/w_campo_texto.dart';
 import 'package:toast/toast.dart';
 import 'menu_page.dart';
-import 'package:projeto_reg_snake/data/models/user.dart' as User;
 
 class CadastroUsuario extends StatefulWidget {
   CadastroUsuario({Key key, this.title}) : super(key: key);
@@ -25,8 +25,8 @@ class _CadastroUsuario extends State<CadastroUsuario> {
       txtEmail: TextEditingController(),
       txtNome: TextEditingController(),
       formKey: GlobalKey<FormState>(),
-      snakeAuthService: new SnakeAuthService(),
-      snakeServiceApiPost: new SnakeServiceApiPost());
+      snakeAuthService: SnakeAuthService(),
+      snakeServiceApiPost: SnakeServiceApiPost());
 
   @override
   Widget build(BuildContext context) {
